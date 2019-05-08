@@ -8,21 +8,21 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class NetworkService {
     private static NetworkService mInstance;
     private static final String BASE_URL="https://newsapi.org/v2/";
-    private Retrofit mRetrofit;
+    private Retrofit mRetrofit=null;
 
-    private NetworkService(){
+    public NetworkService(){
 
         HttpLoggingInterceptor interceptor=new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
-        OkHttpClient.Builder client=new OkHttpClient.Builder()
-                .addInterceptor(interceptor);
+        OkHttpClient client=new OkHttpClient.Builder()
+                .addInterceptor(interceptor).build();
 
 
         mRetrofit =new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
-                .client(client.build())
+                .client(client)
                 .build();
     }
 

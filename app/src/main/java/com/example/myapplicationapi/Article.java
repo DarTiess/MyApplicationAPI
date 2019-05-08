@@ -3,7 +3,7 @@ package com.example.myapplicationapi;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Post {
+public class Article {
 
     private Source source;
     @SerializedName("url")
@@ -17,6 +17,9 @@ public class Post {
     @SerializedName("title")
     @Expose
     private String title;
+
+
+
 
     public String getUrl() {
         return url;
@@ -33,7 +36,7 @@ public class Post {
         return description;
     }
 
-    public void setdescription(String description) {
+    public void setDescription(String description) {
         this.description = description;
     }
 
@@ -44,5 +47,5 @@ public class Post {
     public void setTitle(String title) {
         this.title= title;
     }
-    public  Source getSource(){return source;}
+    public Source getSource(){return source;}
 }

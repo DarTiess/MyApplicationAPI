@@ -3,13 +3,19 @@ package com.example.myapplicationapi;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Source{
+public class Source {
     @SerializedName("id")
     @Expose
     String id;
     @SerializedName("name")
     @Expose
     private String name;
+
+    public Source(String id, String name) {
+        super();
+        this.id = id;
+        this.name = name;
+    }
 
     public String getName() {
         return name;
@@ -26,4 +32,5 @@ public class Source{
     public void setId(String id) {
         this.id = id;
     }
+
 }
