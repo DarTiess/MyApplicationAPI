@@ -1,4 +1,4 @@
-package com.example.myapplicationapi;
+package com.example.myapplicationapi.Pages;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,8 +11,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.myapplicationapi.Pages.FranceNewsActivity;
-import com.example.myapplicationapi.Pages.RuNewsActivity;
+import com.example.myapplicationapi.Article;
+import com.example.myapplicationapi.MainActivity;
+import com.example.myapplicationapi.NetworkService;
+import com.example.myapplicationapi.R;
+import com.example.myapplicationapi.RootObject;
 
 import java.util.Iterator;
 import java.util.List;
@@ -21,8 +24,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+public class FranceNewsActivity extends AppCompatActivity {
 
-public class MainActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     LinearLayoutManager linearLayoutManager;
@@ -32,26 +35,25 @@ public class MainActivity extends AppCompatActivity {
     private List<RootObject> rootObjectList;
     RootObject post;
     RootObject post2;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_france_news);
 
-         final TextView textView = findViewById(R.id.textView);
+        final TextView textView = findViewById(R.id.textView);
 
 
         NetworkService.getInstance()
                 .getJSONApi()
-                .getPosts("us","e0644f2f58c24ad5a5ed9eb9963acffd" )
+                .getPosts("fr","e0644f2f58c24ad5a5ed9eb9963acffd" )
                 .enqueue(new Callback<RootObject>() {
 
 
                     @Override
 
-                    public void onResponse( @NonNull Call<RootObject> call, @NonNull Response<RootObject> response) {
+                    public void onResponse(@NonNull Call<RootObject> call, @NonNull Response<RootObject> response) {
 
-                       post = response.body();
+                        post = response.body();
 
                         textView.append("Amount "+post.getTotalResults() + "\n");
 
@@ -75,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-                 textView.append("Error occurred while getting request!");
+                        textView.append("Error occurred while getting request!");
 
                         t.printStackTrace();
 
@@ -106,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
                 return true;
             case R.id.news_fr:
-                intent = new Intent(this, FranceNewsActivity.class);
+                 intent = new Intent(this, FranceNewsActivity.class);
                 startActivity(intent);
                 return true;
             case R.id.news_us:
@@ -118,3 +120,4 @@ public class MainActivity extends AppCompatActivity {
     }
 
 }
+
