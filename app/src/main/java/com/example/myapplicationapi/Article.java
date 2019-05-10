@@ -41,7 +41,7 @@ public class Article {
     }
 
     public String getTitle() {
-        return title;
+        return title + "\n\n"+ description;
     }
 
     public void setTitle(String title) {
