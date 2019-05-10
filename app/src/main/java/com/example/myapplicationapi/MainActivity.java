@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.myapplicationapi.Pages.FranceNewsActivity;
 import com.example.myapplicationapi.Pages.RuNewsActivity;
@@ -21,8 +22,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.example.myapplicationapi.R.id.refresh;
 
-public class MainActivity extends AppCompatActivity {
+
+public class MainActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
+
+    private SwipeRefreshLayout mSwipeRefresh;
 
     RecyclerView recyclerView;
     LinearLayoutManager linearLayoutManager;
@@ -38,29 +43,33 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-         final TextView textView = findViewById(R.id.textView);
+
+        mSwipeRefresh = (SwipeRefreshLayout) findViewById(refresh);
+        mSwipeRefresh.setOnRefreshListener(this);
+
+        final TextView textView = findViewById(R.id.textView);
 
 
         NetworkService.getInstance()
                 .getJSONApi()
-                .getPosts("us","e0644f2f58c24ad5a5ed9eb9963acffd" )
+                .getPosts("us", "e0644f2f58c24ad5a5ed9eb9963acffd")
                 .enqueue(new Callback<RootObject>() {
 
 
                     @Override
 
-                    public void onResponse( @NonNull Call<RootObject> call, @NonNull Response<RootObject> response) {
+                    public void onResponse(@NonNull Call<RootObject> call, @NonNull Response<RootObject> response) {
 
-                       post = response.body();
+                        post = response.body();
 
-                        textView.append("Amount "+post.getTotalResults() + "\n");
+                        textView.append("Amount " + post.getTotalResults() + "\n");
 
-                        Iterator<Article> iterator=post.getArticles().iterator();
-                        int i=0;
-                        while(iterator.hasNext()) {
+                        Iterator<Article> iterator = post.getArticles().iterator();
+                        int i = 0;
+                        while (iterator.hasNext()) {
                             i++;
 
-                            textView.append("\n"+i+") "+iterator.next().getTitle() + "\n");
+                            textView.append("\n" + i + ") " + iterator.next().getTitle() + "\n");
 
                         }
 
@@ -68,22 +77,18 @@ public class MainActivity extends AppCompatActivity {
                     }
 
 
-
                     @Override
 
                     public void onFailure(@NonNull Call<RootObject> call, @NonNull Throwable t) {
 
 
-
-                 textView.append("Error occurred while getting request!");
+                        textView.append("Error occurred while getting request!");
 
                         t.printStackTrace();
 
                     }
 
                 });
-
-
 
 
     }
@@ -110,11 +115,25 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
                 return true;
             case R.id.news_us:
-                intent = new Intent(this, MainActivity.class);
-                startActivity(intent);
+
+                mSwipeRefresh.setOnRefreshListener(this);
+
+
+
+              //  intent = new Intent(this, MainActivity.class);
+               // startActivity(intent);
                 return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-}
+
+        @Override
+        public void onRefresh() {
+
+            mSwipeRefresh.setRefreshing(true);
+
+                    mSwipeRefresh.setRefreshing(false);
+
+        }
+    }

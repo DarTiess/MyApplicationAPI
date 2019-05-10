@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.myapplicationapi.Article;
 import com.example.myapplicationapi.MainActivity;
@@ -24,8 +25,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class FranceNewsActivity extends AppCompatActivity {
+import static com.example.myapplicationapi.R.id.refresh;
 
+public class FranceNewsActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
+
+    private SwipeRefreshLayout mSwipeRefresh;
 
     RecyclerView recyclerView;
     LinearLayoutManager linearLayoutManager;
@@ -42,6 +46,8 @@ public class FranceNewsActivity extends AppCompatActivity {
 
         final TextView textView = findViewById(R.id.textView);
 
+        mSwipeRefresh = (SwipeRefreshLayout) findViewById(refresh);
+        mSwipeRefresh.setOnRefreshListener(this);
 
         NetworkService.getInstance()
                 .getJSONApi()
@@ -55,7 +61,7 @@ public class FranceNewsActivity extends AppCompatActivity {
 
                         post = response.body();
 
-                        textView.append("Amount "+post.getTotalResults() + "\n");
+                        textView.append("Cantite des nouveaux "+post.getTotalResults() + "\n");
 
                         Iterator<Article> iterator=post.getArticles().iterator();
                         int i=0;
@@ -108,8 +114,7 @@ public class FranceNewsActivity extends AppCompatActivity {
                 startActivity(intent);
                 return true;
             case R.id.news_fr:
-                 intent = new Intent(this, FranceNewsActivity.class);
-                startActivity(intent);
+                mSwipeRefresh.setOnRefreshListener(this);
                 return true;
             case R.id.news_us:
                 intent = new Intent(this, MainActivity.class);
@@ -118,6 +123,13 @@ public class FranceNewsActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+    @Override
+    public void onRefresh() {
 
+        mSwipeRefresh.setRefreshing(true);
+
+        mSwipeRefresh.setRefreshing(false);
+
+    }
 }
 

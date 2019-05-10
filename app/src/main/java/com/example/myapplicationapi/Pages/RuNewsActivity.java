@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.myapplicationapi.Article;
 import com.example.myapplicationapi.MainActivity;
@@ -24,7 +25,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RuNewsActivity extends AppCompatActivity {
+import static com.example.myapplicationapi.R.id.refresh;
+
+public class RuNewsActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
+
+    private SwipeRefreshLayout mSwipeRefresh;
+
     RecyclerView recyclerView;
     LinearLayoutManager linearLayoutManager;
     RecyclerView.Adapter adapter;
@@ -41,6 +47,8 @@ public class RuNewsActivity extends AppCompatActivity {
 
             final TextView textView = findViewById(R.id.textView);
 
+        mSwipeRefresh = (SwipeRefreshLayout) findViewById(refresh);
+        mSwipeRefresh.setOnRefreshListener(this);
 
             NetworkService.getInstance()
                     .getJSONApi()
@@ -54,7 +62,7 @@ public class RuNewsActivity extends AppCompatActivity {
 
                             post = response.body();
 
-                            textView.append("Amount "+post.getTotalResults() + "\n");
+                            textView.append("Общее колличество статей "+post.getTotalResults() + "\n");
 
                             Iterator<Article> iterator=post.getArticles().iterator();
                             int i=0;
@@ -104,8 +112,7 @@ public class RuNewsActivity extends AppCompatActivity {
             int id = item.getItemId();
             switch(id){
                 case R.id.news_ru:
-                    intent = new Intent(this,RuNewsActivity.class);
-                    startActivity(intent);
+                    mSwipeRefresh.setOnRefreshListener(this);
                     return true;
                 case R.id.news_fr:
                     intent = new Intent(this, FranceNewsActivity.class);
@@ -119,5 +126,12 @@ public class RuNewsActivity extends AppCompatActivity {
             }
             return super.onOptionsItemSelected(item);
         }
+    @Override
+    public void onRefresh() {
 
+        mSwipeRefresh.setRefreshing(true);
+
+        mSwipeRefresh.setRefreshing(false);
+
+    }
     }
