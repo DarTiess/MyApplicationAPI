@@ -24,10 +24,9 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
 import static com.example.myapplicationapi.R.id.refresh;
 
-public class RuNewsSportActivity extends AppCompatActivity  implements SwipeRefreshLayout.OnRefreshListener {
+public class RuNewsTechnoActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
 
     private SwipeRefreshLayout mSwipeRefresh;
 
@@ -39,12 +38,14 @@ public class RuNewsSportActivity extends AppCompatActivity  implements SwipeRefr
     private List<RootObject> rootObjectList;
     RootObject post;
     RootObject post2;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ru_news_sport);
+        setContentView(R.layout.activity_france_news_sport);
 
-        mSwipeRefresh = (SwipeRefreshLayout) findViewById(refresh);
+                mSwipeRefresh = (SwipeRefreshLayout) findViewById(refresh);
                 mSwipeRefresh.setOnRefreshListener(this);
 
 
@@ -53,7 +54,7 @@ public class RuNewsSportActivity extends AppCompatActivity  implements SwipeRefr
 
                 NetworkService.getInstance()
                         .getJSONApi()
-                        .getCategori("ru","sports", "e0644f2f58c24ad5a5ed9eb9963acffd")
+                        .getCategori("ru","technology", "e0644f2f58c24ad5a5ed9eb9963acffd")
                         .enqueue(new Callback<RootObject>() {
 
 
@@ -111,12 +112,13 @@ public class RuNewsSportActivity extends AppCompatActivity  implements SwipeRefr
                         mSwipeRefresh.setOnRefreshListener(this);
                         return true;
                     case R.id.news_fr:
-                        intent = new Intent(this, FranceNewsSportActivity.class);
+                        intent = new Intent(this, FranceNewsTechnoActivityActivity.class);
                         startActivity(intent);
                         return true;
                     case R.id.news_us:
-                       intent = new Intent(this, UsNewsSportActivity.class);
-                       startActivity(intent);
+
+             intent = new Intent(this, UsNewsTechnoActivity.class);
+             startActivity(intent);
                         return true;
                 }
                 return super.onOptionsItemSelected(item);
@@ -140,11 +142,13 @@ public class RuNewsSportActivity extends AppCompatActivity  implements SwipeRefr
 
             }
 
-            public void onClickTech(View view) {
 
-             Intent intent;
-             intent = new Intent(this, RuNewsTechnoActivity.class);
-             startActivity(intent);
+            public void onClickSport(View view) {
+
+                Intent intent;
+                intent = new Intent(this, RuNewsSportActivity.class);
+                startActivity(intent);
 
             }
+
         }

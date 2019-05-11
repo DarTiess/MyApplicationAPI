@@ -109,7 +109,7 @@ public class FranceNewsTechnoActivityActivity extends AppCompatActivity  impleme
                 int id = item.getItemId();
                 switch(id){
                     case R.id.news_ru:
-                        intent = new Intent(this,RuNewsActivity.class);
+                        intent = new Intent(this,RuNewsTechnoActivity.class);
                         startActivity(intent);
                         return true;
                     case R.id.news_fr:
@@ -117,10 +117,6 @@ public class FranceNewsTechnoActivityActivity extends AppCompatActivity  impleme
 
                         return true;
                     case R.id.news_us:
-
-
-
-
 
                         intent = new Intent(this, UsNewsTechnoActivity.class);
                         startActivity(intent);

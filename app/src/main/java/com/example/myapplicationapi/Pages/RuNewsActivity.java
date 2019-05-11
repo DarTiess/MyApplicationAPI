@@ -144,6 +144,7 @@ public class RuNewsActivity extends AppCompatActivity implements SwipeRefreshLay
 
     public void onClickTech(View view) {
 
-
+        Intent intent = new Intent(this, RuNewsTechnoActivity.class);
+        startActivity(intent);
     }
 }
