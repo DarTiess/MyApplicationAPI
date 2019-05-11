@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -130,6 +131,15 @@ public class FranceNewsActivity extends AppCompatActivity implements SwipeRefres
 
         mSwipeRefresh.setRefreshing(false);
 
+    }
+
+    public void onClickSport(View view) {
+
+      Intent  intent = new Intent(this, FranceNewsSportActivity.class);
+        startActivity(intent);
+    }
+
+    public void onClickTech(View view) {
     }
 }
 

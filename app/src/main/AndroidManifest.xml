@@ -12,6 +12,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".Pages.FranceNewsTechnoActivityActivity"></activity>
+        <activity android:name=".Pages.FranceNewsSportActivity" />
+        <activity android:name=".Pages.UsNewsTechnoActivity" />
+        <activity android:name=".Pages.UsNewsSportActivity" />
         <activity android:name=".Pages.FranceNewsActivity" />
         <activity android:name=".Pages.RuNewsActivity" />
         <activity android:name=".MainActivity">

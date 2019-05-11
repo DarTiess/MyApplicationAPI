@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,6 +15,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.myapplicationapi.Pages.FranceNewsActivity;
 import com.example.myapplicationapi.Pages.RuNewsActivity;
+import com.example.myapplicationapi.Pages.UsNewsSportActivity;
+import com.example.myapplicationapi.Pages.UsNewsTechnoActivity;
 
 import java.util.Iterator;
 import java.util.List;
@@ -46,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
 
         mSwipeRefresh = (SwipeRefreshLayout) findViewById(refresh);
         mSwipeRefresh.setOnRefreshListener(this);
+
 
         final TextView textView = findViewById(R.id.textView);
 
@@ -136,4 +140,18 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
                     mSwipeRefresh.setRefreshing(false);
 
         }
+
+    public void onClickSport(View view) {
+Intent intent;
+        intent = new Intent(this, UsNewsSportActivity.class);
+        startActivity(intent);
     }
+
+    public void onClickTech(View view) {
+
+        Intent intent;
+        intent = new Intent(this, UsNewsTechnoActivity.class);
+        startActivity(intent);
+
+    }
+}
