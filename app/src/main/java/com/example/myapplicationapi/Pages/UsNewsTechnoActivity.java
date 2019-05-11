@@ -46,6 +46,7 @@ public class UsNewsTechnoActivity extends AppCompatActivity implements SwipeRefr
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_us_news_techno);
 
+
                 mSwipeRefresh = (SwipeRefreshLayout) findViewById(refresh);
                 mSwipeRefresh.setOnRefreshListener(this);
 
